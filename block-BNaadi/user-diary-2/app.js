@@ -1,6 +1,7 @@
 let express = require('express');
 let mongoose = require('mongoose');
 let userRouter = require('./routes/users');
+let logger = require('morgan');
 
 mongoose.connect(" mongodb://127.0.0.1:27017/userDiary", { useNewUrlParser: true,  useUnifiedTopology: true}, (err) => {
     console.log(err ? err : "connected to db");
@@ -17,7 +18,7 @@ app.set("views", __dirname + "/views");
 
 //handle form data
 app.use(express.urlencoded({extended: false}));
-
+app.use(logger('dev'));
 //handle static data
 app.use(express.static(__dirname + '/public'));
 
@@ -37,6 +38,6 @@ app.use((err, req, res, next) => {
 });
 
 //listen
-app.listen(5000, () => {
+app.listen(4000, () => {
     console.log("Server is listening on port 5k");
 });
